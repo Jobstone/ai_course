@@ -36,8 +36,8 @@ def success_print(*s):
 settings_librarys_step = 5 
  #最大抽取数量
 cunnrent_setting_count = 3
-memory_path = "/content/drive/MyDrive/AI/wenda/wenda2/memory/"
-model_path = "/content/drive/MyDrive/AI/wenda/wenda2/model/text2vec-large-chinese"
+memory_path = "./wenda2/memory/"
+model_path = "./wenda2/model/text2vec-large-chinese"
 
 divider='\n'
 
