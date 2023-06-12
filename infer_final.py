@@ -6,15 +6,14 @@
 import os
 import signal
 import platform
+import sys
 
-from utils import ModelArguments, load_pretrained
+sys.path.append("ChatGLM-Efficient-Tuning")
+from src.utils import ModelArguments, load_pretrained
 from transformers import HfArgumentParser
 
-import sys
-sys.path.append("..")
-sys.path.append("..")
 # print("point 1")
-
+sys.path.append("..")
 from wenda2.plugins.zhishiku_rtst import find
 
 # print("point 2")
