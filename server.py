@@ -32,6 +32,7 @@ def run():
 
 if __name__== '__main__':
     thread = Thread(target=run)
+    thread.start()
     os.system("ngrok http 5000")
 
 
