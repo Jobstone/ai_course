@@ -99,12 +99,6 @@ def infer_final(query):
     model.eval()
 
     history = []
-    try:
-        query = input("\nInput: ")
-    except UnicodeDecodeError:
-        return "Detected decoding error at the inputs, please set the terminal encoding to utf-8."
-    except Exception:
-        raise
 
     # if query.strip() == "stop":
     #     return
@@ -142,4 +136,4 @@ def infer_final(query):
 
 
 if __name__ == "__main__":
-    infer_final("中国古代第一个爱国诗人是（）")
+    print(infer_final("中国古代第一个爱国诗人是（）"))
