@@ -8,8 +8,8 @@ import signal
 import platform
 import sys
 
-sys.path.append("ChatGLM-Efficient-Tuning")
-from src.utils import ModelArguments, load_pretrained
+sys.path.append("ChatGLM-Efficient-Tuning/src")
+from utils import ModelArguments, load_pretrained
 from transformers import HfArgumentParser
 
 # print("point 1")
