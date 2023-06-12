@@ -64,7 +64,7 @@ def process_strings(A, C, B):
 def get_doc(id,score,step,memory_name):
     doc = get_doc_by_id(id,memory_name)
     final_content=doc.page_content
-    print("文段分数：",score,[doc.page_content])
+    # print("文段分数：",score,[doc.page_content])
     if step > 0:
         for i in range(1, step+1):
             try:
