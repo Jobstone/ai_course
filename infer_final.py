@@ -13,7 +13,7 @@ from utils import ModelArguments, load_pretrained
 from transformers import HfArgumentParser
 
 # print("point 1")
-sys.path.append("..")
+sys.path.append("../..")
 from wenda2.plugins.zhishiku_rtst import find
 
 # print("point 2")
@@ -37,8 +37,7 @@ def signal_handler(signal, frame):
     stop_stream = True
 
 
-def main():
-
+def main(query):
     global stop_stream
     parser = HfArgumentParser(ModelArguments)
     model_args, = parser.parse_args_into_dataclasses()
@@ -91,5 +90,56 @@ def main():
           print(history[-1][-1])
 
 
+def infer_final(query):
+    global stop_stream
+    parser = HfArgumentParser(ModelArguments)
+    model_args, = parser.parse_args_into_dataclasses()
+    model, tokenizer = load_pretrained(model_args)
+    model = model.cuda()
+    model.eval()
+
+    history = []
+    try:
+        query = input("\nInput: ")
+    except UnicodeDecodeError:
+        return "Detected decoding error at the inputs, please set the terminal encoding to utf-8."
+    except Exception:
+        raise
+
+    # if query.strip() == "stop":
+    #     return
+    # if query.strip() == "clear":
+    #     history = []
+    #     # os.system(clear_command)
+    #     return welcome
+
+    resultJSON = find(query)
+    result = ""
+    for item in resultJSON:
+        result += item["content"]
+    query = ("请你回答一个问题，下面是一些可能相关的信息。" + result + " 问题如下 "+ query)
+
+    count = 0
+    for _, history in model.stream_chat(tokenizer, query, history=history):
+        if stop_stream:
+            stop_stream = False
+            break
+        else:
+            count += 1
+            if count % 8 == 0:
+                # os.system(clear_command)
+                # build_prompt(history)
+                # print(build_prompt(history), flush=True)
+                signal.signal(signal.SIGINT, signal_handler)
+    # os.system(clear_command)
+    # print(build_prompt(history), flush=True)
+    #[(,),(,)]
+    # build_prompt(history)
+    if history!=[]:
+        return history[-1][-1]
+    
+    return "unknown error"
+
+
 if __name__ == "__main__":
-    main()
+    infer_final("中国古代第一个爱国诗人是（）")
