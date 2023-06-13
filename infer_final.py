@@ -17,14 +17,14 @@ from wenda2.plugins.zhishiku_rtst import find
 
 os_name = platform.system()
 clear_command = "cls" if os_name == "Windows" else "clear"
-stop_stream = False
 welcome = "欢迎使用 ChatGLM-6B-history 模型"
 
 
 # 输入内容即可对话，clear清空对话历史，stop终止程序
-def signal_handler(signal, frame):
-    global stop_stream
-    stop_stream = True
+# stop_stream = False
+# def signal_handler(signal, frame):
+#     global stop_stream
+#     stop_stream = True
 
 
 parser = HfArgumentParser(ModelArguments)
@@ -55,7 +55,10 @@ def infer_final(query):
             count += 1
             if count % 8 == 0:
                 print(3)
-                signal.signal(signal.SIGINT, signal_handler)
+                stop_stream = True
+                print(4)
+
+                # signal.signal(signal.SIGINT, signal_handler)
     if history:
         return history[-1][-1]
     return "unknown error"
