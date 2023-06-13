@@ -53,7 +53,7 @@ def infer_final(query):
             break
         else:
             count += 1
-            if count % 8 == 0:
+            if count % 100 == 0:
                 print(3)
                 stop_stream = True
                 print(4)
