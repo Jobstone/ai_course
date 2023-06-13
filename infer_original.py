@@ -27,7 +27,7 @@ def signal_handler(signal, frame):
 
 
 parser = HfArgumentParser(ModelArguments)
-model_args, = parser.parse_args_into_dataclasses()
+model_args, = parser.parse_args_into_dataclasses(args=[])
 model_args.checkpoint_dir = None
 model, tokenizer = load_pretrained(model_args)
 model = model.cuda()
