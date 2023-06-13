@@ -22,10 +22,14 @@ welcome = "欢迎使用 ChatGLM-6B-history 模型"
 
 # 输入内容即可对话，clear清空对话历史，stop终止程序
 stop_stream = False
-# def signal_handler(signal, frame):
-#     global stop_stream
-#     stop_stream = True
 
+
+def signal_handler(signal, frame):
+    global stop_stream
+    stop_stream = True
+
+
+signal.signal(signal.SIGINT, signal_handler)
 
 parser = HfArgumentParser(ModelArguments)
 model_args, = parser.parse_args_into_dataclasses(args=["--checkpoint_dir",
@@ -33,6 +37,8 @@ model_args, = parser.parse_args_into_dataclasses(args=["--checkpoint_dir",
 model, tokenizer = load_pretrained(model_args)
 model = model.cuda()
 model.eval()
+
+
 
 
 def infer_final(query):
@@ -53,10 +59,10 @@ def infer_final(query):
             break
         else:
             count += 1
-            if count % 100 == 0:
-                print(3)
+            # if count % 100 == 0:
+                # print(3)
                 # stop_stream = True
-                print(4)
+                # print(4)
 
                 # signal.signal(signal.SIGINT, signal_handler)
     if history:
