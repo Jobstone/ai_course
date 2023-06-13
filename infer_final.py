@@ -55,7 +55,7 @@ def infer_final(query):
             count += 1
             if count % 100 == 0:
                 print(3)
-                stop_stream = True
+                # stop_stream = True
                 print(4)
 
                 # signal.signal(signal.SIGINT, signal_handler)
