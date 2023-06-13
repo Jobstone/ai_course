@@ -21,7 +21,7 @@ welcome = "欢迎使用 ChatGLM-6B-history 模型"
 
 
 # 输入内容即可对话，clear清空对话历史，stop终止程序
-# stop_stream = False
+stop_stream = False
 # def signal_handler(signal, frame):
 #     global stop_stream
 #     stop_stream = True
