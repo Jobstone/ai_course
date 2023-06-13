@@ -28,23 +28,18 @@ def signal_handler(signal, frame):
 
 
 parser = HfArgumentParser(ModelArguments)
-model_args, = parser.parse_args_into_dataclasses(args=[])
+model_args, = parser.parse_args_into_dataclasses(args=["--checkpoint_dir",
+                                                       "./ChatGLM-Efficient-Tuning/checkpoint4/checkpoint-5000"])
 model_args.checkpoint_dir = None
 model, tokenizer = load_pretrained(model_args)
 model = model.cuda()
 model.eval()
 
 
-def infer_wenda(query):
+def infer_finetune(query):
     global stop_stream
 
     history = []
-    resultJSON = find(query)
-    result = ""
-    for item in resultJSON:
-        result += item["content"]
-    query = ("请你回答一个问题，下面是一些可能相关的信息。" + result + " 问题如下 " + query)
-
     count = 0
     for _, history in model.stream_chat(tokenizer, query, history=history):
         if stop_stream:
@@ -60,4 +55,4 @@ def infer_wenda(query):
 
 
 if __name__ == "__main__":
-    print(infer_wenda("中国古代第一个爱国诗人是（）"))
+    print(infer_finetune("中国古代第一个爱国诗人是（）"))
