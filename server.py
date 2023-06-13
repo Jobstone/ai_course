@@ -10,6 +10,7 @@ def serve():
     args = request.args
     code = '200'
     message = 'success'
+    print(1)
     if 'uuid' in args:
         uuid = request.args.get('uuid')
     else:
@@ -21,6 +22,7 @@ def serve():
         code = '400'
         message = 'Illegal Arguments: must contain attribute \'question\''
     if code == '400':
+        print(message)
         return jsonify(uuid=uuid, code=code, message=message, data='')
     answer = infer_final(question)
     print(answer)
@@ -31,7 +33,7 @@ def run():
     app.run(host='0.0.0.0', port=5000)
 
 
-if __name__== '__main__':
+if __name__ == '__main__':
     thread = Thread(target=run)
     thread.start()
     os.system("ngrok http 5000")
