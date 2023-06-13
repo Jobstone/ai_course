@@ -29,8 +29,7 @@ def signal_handler(signal, frame):
 
 parser = HfArgumentParser(ModelArguments)
 model_args, = parser.parse_args_into_dataclasses(args=["--checkpoint_dir",
-                                                       "/kaggle/working/model/ChatGLM-Efficient-Tuning/checkpoint4"
-                                                       "/checkpoint-5000"])
+                                                       "./ChatGLM-Efficient-Tuning/checkpoint4/checkpoint-5000"])
 model, tokenizer = load_pretrained(model_args)
 model = model.cuda()
 model.eval()
