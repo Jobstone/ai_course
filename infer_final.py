@@ -50,21 +50,11 @@ def infer_final(query):
     for item in resultJSON:
         result += item["content"]
     query = ("请你回答一个问题，下面是一些可能相关的信息。" + result + " 问题如下 "+ query)
-    print(1)
     count = 0
     for _, history in model.stream_chat(tokenizer, query, history=history):
-        print(2)
         if stop_stream:
             stop_stream = False
             break
-        else:
-            count += 1
-            # if count % 100 == 0:
-                # print(3)
-                # stop_stream = True
-                # print(4)
-
-                # signal.signal(signal.SIGINT, signal_handler)
     if history:
         return history[-1][-1]
     return "unknown error"

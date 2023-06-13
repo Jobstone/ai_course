@@ -10,7 +10,6 @@ def serve():
     args = request.args
     code = '200'
     message = 'success'
-    print(1)
     if 'uuid' in args:
         uuid = request.args.get('uuid')
     else:
@@ -22,7 +21,6 @@ def serve():
         code = '400'
         message = 'Illegal Arguments: must contain attribute \'question\''
     if code == '400':
-        print(message)
         return jsonify(uuid=uuid, code=code, message=message, data='')
     print(question)
     answer = infer_final(question)
