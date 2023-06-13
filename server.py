@@ -24,6 +24,7 @@ def serve():
     if code == '400':
         print(message)
         return jsonify(uuid=uuid, code=code, message=message, data='')
+    print(question)
     answer = infer_final(question)
     print(answer)
     return jsonify(uuid=uuid, code=code, message='success', data=answer)
